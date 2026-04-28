@@ -74,8 +74,9 @@
 |---------|---------|------------|
 | `study_related` | 앱=YouTube + 제목에 과목명·강의·개념 포함 | 0.0 (차감 없음) |
 | `habitual_check` | 앱=KakaoTalk/SMS + 체류 ≤ 60초 | 1.5 |
-| `avoidance_entertainment` | 앱=YouTube/Instagram/TikTok + 학습 무관 | 2.0 |
+| `avoidance_chat` | 앱=KakaoTalk/SMS + 체류 > 60초 | 1.8 |
 | `shopping` | 앱=Coupang/네이버쇼핑 등 | 1.8 |
+| `avoidance_entertainment` | 앱=YouTube/Instagram/TikTok + 학습 무관 | 2.0 |
 | `unknown` | 분류 불가 | 1.0 |
 
 신뢰도 < 0.60 처리:
