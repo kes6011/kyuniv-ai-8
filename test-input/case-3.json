@@ -1,0 +1,45 @@
+{
+  "user_id": "anon-uuid-001",
+  "session_id": "session-20250428-003",
+  "subject": "데이터베이스",
+  "session_start": "2025-04-28T22:00:00+09:00",
+  "app_logs": [
+    {
+      "app": "YouTube",
+      "title": "주간 예능 하이라이트 모음 2025년 4월",
+      "channel": "예능모아",
+      "start": "22:11",
+      "duration_sec": 2400
+    },
+    {
+      "app": "Instagram",
+      "title": null,
+      "channel": null,
+      "start": "23:01",
+      "duration_sec": 600
+    },
+    {
+      "app": "YouTube",
+      "title": "먹방 VLOG - 신촌 맛집 투어",
+      "channel": "먹방킹",
+      "start": "23:13",
+      "duration_sec": 480
+    },
+    {
+      "app": "Coupang",
+      "title": null,
+      "channel": null,
+      "start": "23:21",
+      "duration_sec": 480
+    }
+  ],
+  "screen_events": [
+    { "event": "on",  "time": "22:00" },
+    { "event": "off", "time": "23:30" }
+  ],
+  "baseline": {
+    "avg_focus_score": 63,
+    "typical_distraction_app": "YouTube"
+  },
+  "_memo": "집중 붕괴 케이스 — 오락 유튜브 40분 + 인스타 10분 + 먹방 유튜브 8분 + 쿠팡 8분"
+}

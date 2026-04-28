@@ -1,0 +1,45 @@
+{
+  "user_id": "anon-uuid-001",
+  "session_id": "session-20250428-002",
+  "subject": "자료구조",
+  "session_start": "2025-04-28T16:00:00+09:00",
+  "app_logs": [
+    {
+      "app": "KakaoTalk",
+      "title": null,
+      "channel": null,
+      "start": "16:08",
+      "duration_sec": 55
+    },
+    {
+      "app": "KakaoTalk",
+      "title": null,
+      "channel": null,
+      "start": "16:22",
+      "duration_sec": 50
+    },
+    {
+      "app": "KakaoTalk",
+      "title": null,
+      "channel": null,
+      "start": "16:41",
+      "duration_sec": 48
+    },
+    {
+      "app": "Coupang",
+      "title": null,
+      "channel": null,
+      "start": "16:50",
+      "duration_sec": 420
+    }
+  ],
+  "screen_events": [
+    { "event": "on",  "time": "16:00" },
+    { "event": "off", "time": "17:30" }
+  ],
+  "baseline": {
+    "avg_focus_score": 63,
+    "typical_distraction_app": "KakaoTalk"
+  },
+  "_memo": "경계 케이스 — 카톡 습관적 확인 3회(각 1분 미만) + 쿠팡 쇼핑 7분"
+}

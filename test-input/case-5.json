@@ -1,0 +1,45 @@
+{
+  "user_id": "anon-uuid-001",
+  "session_id": "session-20250428-005",
+  "subject": "미적분학",
+  "session_start": "2025-04-28T19:00:00+09:00",
+  "app_logs": [
+    {
+      "app": "YouTube",
+      "title": "미적분 극한 개념 정리 - 수능·대학 완전 정복",
+      "channel": "수학의정석TV",
+      "start": "19:05",
+      "duration_sec": 900
+    },
+    {
+      "app": "YouTube",
+      "title": "먹방 VLOG - 야식 라면 끓이기",
+      "channel": "먹방킹",
+      "start": "19:22",
+      "duration_sec": 720
+    },
+    {
+      "app": "YouTube",
+      "title": "미적분 연습문제 풀이 - 편미분 실전",
+      "channel": "수학의정석TV",
+      "start": "19:36",
+      "duration_sec": 1200
+    },
+    {
+      "app": "KakaoTalk",
+      "title": null,
+      "channel": null,
+      "start": "20:00",
+      "duration_sec": 55
+    }
+  ],
+  "screen_events": [
+    { "event": "on",  "time": "19:00" },
+    { "event": "off", "time": "20:05" }
+  ],
+  "baseline": {
+    "avg_focus_score": 63,
+    "typical_distraction_app": "YouTube"
+  },
+  "_memo": "엣지 케이스 — 동일 앱(YouTube) 내 학습 강의 2편과 먹방 1편이 혼재. 분류 신뢰도 검증 필요"
+}

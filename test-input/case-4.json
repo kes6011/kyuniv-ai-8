@@ -1,0 +1,33 @@
+{
+  "user_id": "anon-uuid-001",
+  "session_id": "session-20250428-004",
+  "subject": "알고리즘",
+  "session_start": "2025-04-28T10:00:00+09:00",
+  "app_logs": [
+    {
+      "app": "YouTube",
+      "title": "그래프 탐색 알고리즘 BFS DFS 강의",
+      "channel": "알고리즘강의",
+      "start": "10:05",
+      "duration_sec": 1200
+    },
+    {
+      "app": "KakaoTalk",
+      "title": null,
+      "channel": null,
+      "start": "T10:25",
+      "duration_sec": 90
+    },
+    {
+      "app": "Instagram",
+      "title": null,
+      "channel": null,
+      "start": "10:28",
+      "duration_sec": -30
+    }
+  ],
+  "screen_events": [
+    { "event": "on", "time": "10:00" }
+  ],
+  "_memo": "실패 케이스 — app_logs[1].start 형식 오류('T10:25'), app_logs[2].duration_sec 음수값, screen_events에 off 이벤트 누락"
+}

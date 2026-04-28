@@ -1,0 +1,38 @@
+{
+  "user_id": "anon-uuid-001",
+  "session_id": "session-20250428-001",
+  "subject": "운영체제",
+  "session_start": "2025-04-28T14:00:00+09:00",
+  "app_logs": [
+    {
+      "app": "YouTube",
+      "title": "2025 운영체제 강의 - 프로세스 스케줄링 완전 정리",
+      "channel": "CS전공강의TV",
+      "start": "14:03",
+      "duration_sec": 1800
+    },
+    {
+      "app": "KakaoTalk",
+      "title": null,
+      "channel": null,
+      "start": "14:35",
+      "duration_sec": 45
+    },
+    {
+      "app": "Notion",
+      "title": null,
+      "channel": null,
+      "start": "14:36",
+      "duration_sec": 2400
+    }
+  ],
+  "screen_events": [
+    { "event": "on",  "time": "14:00" },
+    { "event": "off", "time": "15:16" }
+  ],
+  "baseline": {
+    "avg_focus_score": 63,
+    "typical_distraction_app": "YouTube"
+  },
+  "_memo": "정상 케이스 — 학습 관련 유튜브 강의 + 짧은 카톡 확인 + 노트 앱 작업"
+}
