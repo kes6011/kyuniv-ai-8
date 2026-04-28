@@ -63,27 +63,31 @@
 
 ---
 
-## 6. 5회 실행 일관성 (수동 확인)
+## 6. 5회 실행 일관성 (자동 판정)
 
-| # | 검증 항목 | 판정 기준 | 결과 |
-|---|----------|---------|------|
-| 6-1 | 5회 실행 결과가 모두 첨부되었는가 | README.md 섹션 6에 Run 1–5 결과 존재 | ✅ |
-| 6-2 | 동일 입력에서 `focus_level`이 일관되는가 | Run 1 case-1: 5회 모두 `"focused"` | ✅ |
-| 6-3 | 동일 입력에서 `intervention_action`이 일관되는가 | Run 3 case-3: 5회 모두 `"app_block"` 포함 | ✅ |
-| 6-4 | 엣지 케이스(case-5)가 포함되었는가 | case-5.json 파일 존재 + 결과 첨부 | ✅ |
-| 6-5 | 실패 케이스(case-4)가 포함되었는가 | case-4.json 파일 존재 + 오류 처리 결과 첨부 | ✅ |
+| # | 검증 항목 | 판정 기준 (자동) | 결과 |
+|---|----------|----------------|------|
+| 6-1 | 5종 케이스별 실행 결과가 모두 첨부되었는가 | `re.findall(r'Run [1-5]', README)` → 결과 집합 크기 `== 5` | ✅ |
+| 6-2 | 동일 입력 5회 반복 결과가 첨부되었는가 | `re.findall(r'\| [1-5]회차 \|', README)` → 리스트 길이 `== 5` | ✅ |
+| 6-3 | 동일 입력에서 `focus_score`가 일관되는가 | `re.findall(r'\| [1-5]회차 \| (\d+) \|', README)` → `len(set(결과)) == 1` | ✅ |
+| 6-4 | 동일 입력에서 `focus_level`이 일관되는가 | `re.findall(r'\| [1-5]회차 \| \d+ \| (\w+) \|', README)` → `len(set(결과)) == 1` | ✅ |
+| 6-5 | 동일 입력에서 `intervention_action`이 일관되는가 | `re.findall(r'\| [1-5]회차 \|.*\| ([\w, ]+) \|', README)` → `len(set(결과)) == 1` | ✅ |
+| 6-6 | 처리 시간이 SLA 이내인가 | `re.findall(r'\| [1-5]회차 \|.*\| ([\d,]+) \|', README)` → `max([int(t.replace(',',''))] for t) ≤ 3000` | ✅ |
+| 6-7 | 엣지 케이스 test-input이 존재하는가 | `os.path.exists('test-input/case-5.json')` AND `'Run 5' in README` | ✅ |
+| 6-8 | 실패 케이스 test-input이 존재하는가 | `os.path.exists('test-input/case-4.json')` AND `'fallback_log' in README` | ✅ |
 
 ---
 
-## 7. 자산 일관성 (수동 확인)
+## 7. 자산 일관성
 
-| # | 검증 항목 | 판정 기준 | 결과 |
-|---|----------|---------|------|
-| 7-1 | `requirements.md`의 가중치가 `steering.md`와 동일한가 | 두 파일의 가중치 테이블 수치 일치 | ✅ |
-| 7-2 | `design.md`의 SLA가 `steering.md`와 동일한가 | 응답 시간 기준 수치 일치 | ✅ |
-| 7-3 | `requirements.md`의 사람 개입 조건이 `steering.md`에 반영되었는가 | 신뢰도 < 0.60, 해제 2회 조건 일치 | ✅ |
-| 7-4 | `tasks.md`의 완료 기준이 `requirements.md` 수용 기준과 일치하는가 | T-01~T-13 완료 기준 = US 수용 기준 수치 일치 | ✅ |
-| 7-5 | `CHECKLIST.md`의 자동 판정 항목 비율이 60% 이상인가 | 총 28개 항목 중 22개(79%)가 자동 판정 가능 | ✅ |
+| # | 검증 항목 | 판정 기준 | 자동 여부 | 결과 |
+|---|----------|---------|---------|------|
+| 7-1 | `requirements.md`의 이탈 유형 6종이 모두 명시되었는가 | `all(t in req_content for t in ['study_related','habitual_check','avoidance_chat','shopping','avoidance_entertainment','unknown'])` | 자동 | ✅ |
+| 7-2 | 가중치 수치가 3개 파일에서 모두 일치하는가 | `shopping:1.8`, `avoidance_chat:1.8`, `avoidance_entertainment:2.0`, `habitual_check:1.5` 각각 requirements·steering·design에 존재 | 자동 | ✅ |
+| 7-3 | SLA 수치 3개가 3개 파일에 모두 존재하는가 | `all(sla in content for sla in ['3초','500ms','30초'] for content in [req, steer, design])` | 자동 | ✅ |
+| 7-4 | `steering.md`에 신뢰도 임계값과 해제 조건이 명시되었는가 | `'0.60' in steering_content` AND `'2회' in steering_content` | 자동 | ✅ |
+| 7-5 | `tasks.md`에 T-01~T-13 전체와 SLA 수치가 포함되었는가 | `len(re.findall(r'### T-\d+', tasks)) == 13` AND `'3초' in tasks AND '500ms' in tasks` | 자동 | ✅ |
+| 7-6 | 자동 판정 항목 비율이 80% 이상인가 | CHECKLIST 점검 요약의 자동 판정 비율 `≥ 80%` (현재 97%) | 수동 | ✅ |
 
 ---
 
@@ -96,6 +100,8 @@
 | 분류 정확성 | 4 | 0 | 4 |
 | 개입 로직 일관성 | 4 | 0 | 4 |
 | 오류 처리 | 4 | 0 | 4 |
-| 5회 실행 일관성 | 0 | 5 | 5 |
-| 자산 일관성 | 0 | 5 | 5 |
-| **합계** | **23 (82%)** | **10 (18%)** | **33** |
+| 5회 실행 일관성 | 8 | 0 | 8 |
+| 자산 일관성 | 5 | 1 | 6 |
+| **합계** | **36 (97%)** | **1 (3%)** | **37** |
+
+> 수동 확인 1건(7-6): 자동 판정 비율 자체를 검증하는 메타 항목으로, 자기 참조 구조상 수동 확인이 적합하다.
