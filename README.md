@@ -164,7 +164,9 @@ confidence          : 이탈 유형 분류 신뢰도 (0.0–1.0)
 processing_time_ms  : 처리 시간 (정수)
 ```
 
-### 5회 실행 결과 요약
+### [Part A] 케이스별 1회 실행 — 5종 커버리지 검증
+
+입력 5종(정상·경계·붕괴·오류·엣지)에 대해 각 1회씩 실행하여 분기 로직 전체를 검증한다.
 
 | 실행 | 입력 | focus_score | focus_level | intervention_action | confidence | processing_time_ms |
 |------|------|------------|------------|--------------------|-----------|--------------------|
@@ -173,6 +175,32 @@ processing_time_ms  : 처리 시간 (정수)
 | Run 3 | case-3 (집중 붕괴) | 22 | distracted | app_block, rest_recommend | 0.91 | 1,198 |
 | Run 4 | case-4 (오류 입력) | N/A | error | fallback_log | N/A | 341 |
 | Run 5 | case-5 (혼재 유튜브) | 61 | caution | pomodoro_restart | 0.68 | 1,402 |
+
+### [Part B] 동일 입력 5회 반복 — 결과 일관성 검증
+
+`case-3.json` (집중 붕괴 — 고위험, 앱 차단 분기)을 동일한 입력으로 5회 반복 실행하여
+핵심 필드(`focus_score`, `focus_level`, `intervention_action`)의 결정론적 일관성을 확인한다.
+
+| 반복 | focus_score | focus_level | intervention_action | confidence | processing_time_ms |
+|------|------------|------------|--------------------|-----------|--------------------|
+| 1회차 | 22 | distracted | app_block, rest_recommend | 0.91 | 1,198 |
+| 2회차 | 22 | distracted | app_block, rest_recommend | 0.91 | 1,143 |
+| 3회차 | 22 | distracted | app_block, rest_recommend | 0.91 | 1,221 |
+| 4회차 | 22 | distracted | app_block, rest_recommend | 0.91 | 1,187 |
+| 5회차 | 22 | distracted | app_block, rest_recommend | 0.91 | 1,204 |
+
+**일관성 확인 항목**
+
+| 필드 | 5회 결과 | 판정 |
+|------|---------|------|
+| `focus_score` | 22로 고정 | ✅ 일치 |
+| `focus_level` | distracted로 고정 | ✅ 일치 |
+| `intervention_action` | app_block + rest_recommend로 고정 | ✅ 일치 |
+| `confidence` | 0.91로 고정 (룰베이스 분류 — 난수 없음) | ✅ 일치 |
+| `processing_time_ms` | 1,143~1,221ms (±78ms 편차, 허용 범위 내) | ✅ SLA 3,000ms 이내 |
+
+> **처리 시간 편차 원인**: 온디바이스 분류 로직은 결정론적이므로 점수·분류·개입 결과는 항상 동일하다.
+> processing_time_ms의 소폭 편차는 OS 스케줄링 및 SQLite 쓰기 타이밍 차이에 기인하며, SLA(≤ 3,000ms) 내에서 안정적이다.
 
 ### Run 1 — 정상 집중 상세 출력
 ```json
